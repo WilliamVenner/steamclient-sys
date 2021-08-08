@@ -1,0 +1,26 @@
+[package]
+name = "steamclient-sys"
+version = "0.1.0"
+authors = ["William Venner <william@venner.io>"]
+edition = "2018"
+build = "src/build.rs"
+
+[dependencies]
+cxx = "1.0.51"
+autocxx = "0.11.0"
+
+[build-dependencies]
+autocxx-build = "0.11.0"
+reqwest = { optional = true, version = "0.11.4", features = ["blocking", "rustls-tls"], default-features = false }
+
+[target.'cfg(windows)'.build-dependencies]
+zip = "0.5.13"
+
+[target.'cfg(unix)'.build-dependencies]
+flate2 = "1.0.20"
+tar = "0.4.35"
+dirs = "3.0.2"
+
+[features]
+default = ["steamcmd"]
+steamcmd = ["reqwest"]
